@@ -1,0 +1,44 @@
+[project]
+name = "toxic-server"
+version = "0.1.0"
+description = "Toxic text classification service"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "grpcio",
+    "grpcio-tools<=1.66.2",
+    "transformers",
+    "torch",
+    "prometheus-client",
+    "ruff",
+    "ty",
+    "pytest",
+    "pytest-cov"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.report]
+omit = [
+    "*/inference_pb2.py",
+    "*/inference_pb2_grpc.py",
+]
+
+[tool.ruff]
+exclude = ["src/toxic_server/inference_pb2.py", "src/toxic_server/inference_pb2_grpc.py"]
+
+[[tool.ty.overrides]]
+include = ["src/toxic_server/*.py"]
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
+unresolved-import = "ignore"
+
+[[tool.ty.overrides]]
+include = ["tests/*.py"]
+[tool.ty.overrides.rules]
+unresolved-attribute = "ignore"
